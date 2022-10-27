@@ -1,6 +1,7 @@
 import json
 import re
 import os
+import subprocess
 
 # open log file
 jsonFile = open("example_file/alert_json.txt")
@@ -14,7 +15,9 @@ for row in jsonFile:
 
 # assign directory
 directory = 'example_file/rules'
-newRules = open("new_rules.rules", "w")
+pathNewRules = "files/new_rules.rules"
+
+newRules = open(pathNewRules, "w")
  
 # iterate over files in
 # that directory
@@ -44,3 +47,8 @@ for filename in os.listdir(directory):
         if(IDS.get(id)):
             newRules.write(row)
         
+
+sshFile = open("files/ssh_address_and_path.txt")
+
+for sshAddr in sshFile:
+    subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
