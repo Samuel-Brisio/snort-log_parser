@@ -3,6 +3,11 @@ import re
 import os
 import subprocess
 
+#logPath = "/var/snort/"
+#rulePath = "/usr/local/etc/rules/"
+#newRulesPath = "/home/user/rule/"
+#sshAddrPath = "/usr/local/etc/snort/ssh/"
+
 # open log file
 jsonFile = open("example_file/alert_json.txt")
 IDS = {}
