@@ -48,7 +48,8 @@ for filename in os.listdir(rulePath):
         if(IDS.get(id)):
             newRules.write(row)
         
-
+newRules.close()
+        
 sshFile = open(sshAddrPath + "ssh_address.txt")
 
 for sshAddr in sshFile:
