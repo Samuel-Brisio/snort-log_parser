@@ -52,4 +52,4 @@ for filename in os.listdir(rulePath):
 sshFile = open(sshAddrPath + "ssh_address.txt")
 
 for sshAddr in sshFile:
-    subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
+    subprocess.run(["scp", newRulesPath + "new_rules.rules" , sshAddr + "new_rules.rules"])
