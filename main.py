@@ -23,7 +23,7 @@ newRules = open(newRulesPath + "new_rules.rules", "w")
 # iterate over files in
 # that directory
 for filename in os.listdir(rulePath):
-    f = os.path.join(directory, filename)
+    f = os.path.join(rulePath, filename)
     # checking if it is a file
     if not os.path.isfile(f):
         continue
