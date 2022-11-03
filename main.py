@@ -3,13 +3,13 @@ import re
 import os
 import subprocess
 
-#logPath = "/var/snort/"
-#rulePath = "/usr/local/etc/rules/"
-#newRulesPath = "/home/user/rule/"
-#sshAddrPath = "/usr/local/etc/snort/ssh/"
+logPath = "/var/snort/"
+rulePath = "/usr/local/etc/rules/"
+newRulesPath = "/home/user/rule/"
+sshAddrPath = "/usr/local/etc/snort/ssh/"
 
 # open log file
-jsonFile = open("example_file/alert_json.txt")
+jsonFile = open(logPath + "alert_json.txt")
 IDS = {}
 
 # iterate over row in that directory
@@ -18,15 +18,11 @@ for row in jsonFile:
     id = re.split(":", data['rule'])[1]
     IDS[id] = True
 
-# assign directory
-directory = 'example_file/rules'
-pathNewRules = "files/new_rules.rules"
-
-newRules = open(pathNewRules, "w")
+newRules = open(newRulesPath + "new_rules.rules", "w")
  
 # iterate over files in
 # that directory
-for filename in os.listdir(directory):
+for filename in os.listdir(rulePath):
     f = os.path.join(directory, filename)
     # checking if it is a file
     if not os.path.isfile(f):
@@ -53,7 +49,7 @@ for filename in os.listdir(directory):
             newRules.write(row)
         
 
-sshFile = open("files/ssh_address_and_path.txt")
+sshFile = open(sshAddrPath + "ssh_address.txt")
 
 for sshAddr in sshFile:
     subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
