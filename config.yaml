@@ -1,0 +1,9 @@
+paths:
+  log: "/var/snort/"
+  rule: "/usr/local/etc/rules/"
+  new_rules: "/home/user/rule/"
+  ssh_addr: "/usr/local/etc/snort/ssh/"
+
+file_name:
+  log: "alert_json.txt"
+  new_rules: "new_rules.rules"
