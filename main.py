@@ -24,7 +24,7 @@ def argumentsParsing(argv):
         print('main.py -c <configfile>')
         sys.exit(2)
     
-    return parameters 
+    return parameters[-1] 
 
 
 def yamlParsing(fileName):
@@ -37,8 +37,12 @@ def yamlParsing(fileName):
     yamlFile = yaml.safe_load(file)
     return yamlFile['paths'], yamlFile["file_names"], yamlFile['ssh']
 
-
 def main():
+    args = argumentsParsing(sys.argv[1:])
+    paths, names, ssh = yamlParsing(args[-1])
+
+
+def main2():
     args = argumentsParsing(sys.argv[1:])
     paths, names, ssh = yamlParsing(args[-1])
 
