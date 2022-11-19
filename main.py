@@ -97,7 +97,7 @@ def main():
                 newRules.write(row)
             
     newRules.close()
-    sshFile = open("files/ssh_address_and_path.txt")
+    sshFile = open(paths['ssh_addr'] + names['ssh'])
 
     for sshAddr in sshFile:
         subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
