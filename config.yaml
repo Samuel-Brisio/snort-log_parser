@@ -11,4 +11,4 @@ file_name:
 ssh:
   dispositovo_1: 
     addr: "user@172.18.32.45"
-    path: "/newRules/newRule.rules"
+    path: "~/newRules/newRule.rules"

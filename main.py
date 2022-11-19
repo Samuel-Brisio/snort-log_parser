@@ -99,8 +99,8 @@ def main():
     newRules.close()
 
     for disposivo in ssh:
-        sshAddr = disposivo['addr'] + disposivo['path']
-        subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
+        sshAddr = disposivo['addr'] + ":" + disposivo['path']
+        subprocess.run(["scp", pathNewRules, sshAddr])
 
 
 if __name__ == "__main__":
