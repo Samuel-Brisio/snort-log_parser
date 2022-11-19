@@ -35,12 +35,12 @@ def yamlParsing(fileName):
         sys.exit(2)
     
     yamlFile = yaml.safe_load(file)
-    return yamlFile['paths'], yamlFile["file_names"]
+    return yamlFile['paths'], yamlFile["file_names"], yamlFile['ssh']
 
 
 def main():
     args = argumentsParsing(sys.argv[1:])
-    paths, names = yamlParsing(args[-1])
+    paths, names, ssh = yamlParsing(args[-1])
 
     # open log file
     jsonFile = open(paths['log'] + names['log'])
@@ -97,9 +97,9 @@ def main():
                 newRules.write(row)
             
     newRules.close()
-    sshFile = open(paths['ssh_addr'] + names['ssh'])
 
-    for sshAddr in sshFile:
+    for disposivo in ssh:
+        sshAddr = disposivo['addr'] + disposivo['path']
         subprocess.run(["scp", pathNewRules, sshAddr + "rules.rules"])
 
 

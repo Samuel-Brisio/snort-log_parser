@@ -8,3 +8,8 @@ file_name:
   log: "alert_json.txt"
   new_rules: "new_rules.rules"
   ssh: ssh_address_and_path.txt
+
+ssh:
+  dispositovo_1: 
+    addr: "user@172.18.32.45"
+    path: "/newRules/newRule.rules"
