@@ -41,11 +41,6 @@ def main():
     args = argumentsParsing(sys.argv[1:])
     paths, names, ssh = yamlParsing(args[-1])
 
-
-def main2():
-    args = argumentsParsing(sys.argv[1:])
-    paths, names, ssh = yamlParsing(args[-1])
-
     # open log file
     jsonFile = open(paths['log'] + names['log'])
     IDS = {}
@@ -63,7 +58,7 @@ def main2():
     try:
         newRules = open(pathNewRules, "w")
     except FileNotFoundError:
-        print("Arquivo de log não encontrado")
+        print("Não foi possivel abrir o arquivo de novas regras")
         sys.exit(2)
     
     # iterate over files in
@@ -102,8 +97,9 @@ def main2():
             
     newRules.close()
 
-    for disposivo in ssh:
-        sshAddr = disposivo['addr'] + ":" + disposivo['path']
+    for dispositivo in ssh:
+        dispositivo = ssh[dispositivo]
+        sshAddr = ssh[dispositivo]['addr'] + ":" + dispositivo['path']
         subprocess.run(["scp", pathNewRules, sshAddr])
 
 
