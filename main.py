@@ -5,27 +5,23 @@ import subprocess
 import sys
 import getopt
 import yaml
+import argparse
 
 
-def argumentsParsing(argv):
-    try:
-        opts, args = getopt.getopt(argv, 'hc:', 'config')
-    except getopt.GetoptError:
-        print('main.py -c <configfile>')
-        sys.exit(2)
-    
-    parameters = []
+def argumentsParsing():
+    # Inicialize the parser
+    parser = argparse.ArgumentParser(
+    # Program Name
+    prog= 'main.py',
+    description= 'Snort Log Parser',
+    # End of help message
+    epilog= './main.py -c <config_file> -a <src ip address'
+    )
 
-    if opts:
-        parameters = opts
-    elif args:
-        parameters = args
-    else:
-        print('main.py -c <configfile>')
-        sys.exit(2)
-    
-    return parameters[-1] 
+    # Configuration file
+    parser.add_argument('-c', '--config', required=True, help= "configuration file")
 
+    return parser.parse_args()
 
 def yamlParsing(fileName):
     try:
@@ -38,8 +34,8 @@ def yamlParsing(fileName):
     return yamlFile['paths'], yamlFile["file_names"], yamlFile['ssh']
 
 def main():
-    args = argumentsParsing(sys.argv[1:])
-    paths, names, ssh = yamlParsing(args[-1])
+    args = argumentsParsing()
+    paths, names, ssh = yamlParsing(args.config)
 
     # open log file
     jsonFile = open(paths['log'] + names['log'])
@@ -98,8 +94,7 @@ def main():
     newRules.close()
 
     for dispositivo in ssh:
-        dispositivo = ssh[dispositivo]
-        sshAddr = ssh[dispositivo]['addr'] + ":" + dispositivo['path']
+        sshAddr = ssh[dispositivo]['addr'] + ":" + ssh[dispositivo]['path']
         subprocess.run(["scp", pathNewRules, sshAddr])
 
 
