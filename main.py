@@ -6,7 +6,7 @@ import sys
 import getopt
 import yaml
 import argparse
-
+import socket
 
 def argumentsParsing():
     # Inicialize the parser
@@ -41,14 +41,15 @@ def main():
     jsonFile = open(paths['log'] + names['log'])
     IDS = {}
 
-    # iterate over row in that directory
+    # iterate over row in that file
     for row in jsonFile:
         data = json.loads(row)
         id = re.split(":", data['rule'])[1]
         IDS[id] = True
 
-    # assign directory
+    # assign rule directory
     directory = paths['rule']
+    # rule file that will be sent to others snort
     pathNewRules = paths['new_rules'] + names['new_rules']
 
     try:
@@ -92,8 +93,12 @@ def main():
                 newRules.write(row)
             
     newRules.close()
+    myIP = socket.gethostbyname(socket.gethostname())
 
     for dispositivo in ssh:
+        if ssh[dispositivo]['addr'][5:] == myIP:
+            continue
+
         sshAddr = ssh[dispositivo]['addr'] + ":" + ssh[dispositivo]['path']
         subprocess.run(["scp", pathNewRules, sshAddr])
 
