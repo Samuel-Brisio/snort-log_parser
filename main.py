@@ -96,10 +96,14 @@ def main():
     myIP = socket.gethostbyname(socket.gethostname())
 
     for dispositivo in ssh:
-        if ssh[dispositivo]['addr'][5:] == myIP:
+        if ssh[dispositivo]['addr'] == myIP:
             continue
+        
+        user = ssh[dispositivo]['user']
+        addr = ssh[dispositivo]['addr']
+        path = ssh[dispositivo]['path']
 
-        sshAddr = ssh[dispositivo]['addr'] + ":" + ssh[dispositivo]['path']
+        sshAddr = user + '@' + addr + ":" + ssh[dispositivo]['path']
         subprocess.run(["scp", pathNewRules, sshAddr])
 
 

@@ -1,13 +1,18 @@
 paths:
-  log: "/var/snort/"
-  rule: "/usr/local/etc/rules/"
-  new_rules: "/home/user/rule/"
+  log: "example_file/"
+  rule: "example_file/rules/"
+  new_rules: "example_file/"
 
 file_names:
   log: "alert_json.txt"
-  new_rules: "new_rules.rules"
+  new_rules: "rule_test"
 
 ssh:
   dispositovo_1: 
-    addr: "user@172.18.32.45"
+    user: "user"
+    addr: "172.18.32.45"
+    path: "~/newRules/newRule.rules"
+  dispositovo_2:
+    user: "user" 
+    addr: "127.0.1.1"
     path: "~/newRules/newRule.rules"
